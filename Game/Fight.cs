@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Game
 {
@@ -47,7 +43,7 @@ namespace Game
                         if (tour == 1) hero.Attack(enemy, "Strength", hero, tour, type);
                         else enemy.Attack(hero, "Strength", enemy, tour, type);
                         break;
-                        
+
                     case 2:
                         if (tour == 1) hero.Attack(enemy, "Intelligence", hero, tour, type);
                         else enemy.Attack(hero, "Intelligence", enemy, tour, type);

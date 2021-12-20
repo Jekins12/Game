@@ -6,10 +6,10 @@ namespace Game
     {
         static void Main(string[] args)
         {
-            
+
             while (true)
             {
-                
+
                 int ans = Hero.Menu();
                 switch (ans)
                 {
@@ -33,7 +33,7 @@ namespace Game
                         Environment.Exit(1);
                         break;
                 }
-            }            
+            }
         }
     }
 }

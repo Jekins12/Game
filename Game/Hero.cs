@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.IO;
-using Newtonsoft.Json.Linq;
 
 namespace Game
 {
@@ -109,13 +109,13 @@ namespace Game
                 else
                 {
                     enemy.Name = name;
-                    Console.WriteLine("Well, now you have 20 points, u can upgrade any stats you want");
+                    Console.WriteLine("Well, now you have 50 points, u can upgrade any stats you want");
                     enemy.Strength = 5;
                     enemy.Dexterity = 5;
                     enemy.Intelligence = 5;
                     enemy.LVL = 1;
                     enemy.XP = 0;
-                    for (int i = 20; i > 0; i--)
+                    for (int i = 50; i > 0; i--)
                     {
                         Console.WriteLine("Str:{0} Dex:{1} Int:{2}", enemy.GetStrength(), enemy.GetDexterity(), enemy.GetIntelligence() + " points left:" + i);
                         Console.WriteLine("[1] Strength" +
@@ -191,7 +191,7 @@ namespace Game
             }
         }
 
-        public void Attack(Hero enemy, string atk, Hero hero, int tour,int type)
+        public void Attack(Hero enemy, string atk, Hero hero, int tour, int type)
         {
             int opt = 0;
 
@@ -236,7 +236,7 @@ namespace Game
                     ": ");
                     int.TryParse(Console.ReadLine(), out opt);
                 }
-                
+
 
 
                 switch (opt)
@@ -265,6 +265,7 @@ namespace Game
 
             else if (opt == 1 && rand.Run(0, 100) > enemy.GetDexterity())
             {
+                Sound.Play("fireball");
                 Console.WriteLine("Fireball!      " + "damage=" + damage);
                 enemy.HP -= damage;
                 if (tour == 1)
@@ -275,6 +276,7 @@ namespace Game
 
             else if (opt == 2 && rand.Run(0, 100) > enemy.GetDexterity())
             {
+                Sound.Play("frostbite");
                 Console.WriteLine("Frostbite!      " + "damage=" + damage);
                 enemy.HP -= damage;
                 if (tour == 1)
@@ -285,6 +287,7 @@ namespace Game
 
             else if (opt == 3)
             {
+                Sound.Play("heal");
                 Console.WriteLine("Healed!");
                 if (tour == 1)
                 {
