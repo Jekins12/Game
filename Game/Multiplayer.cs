@@ -12,7 +12,7 @@ namespace Game
             Console.WriteLine("\r\nNow create your enemy!\r\n");
             Hero enemy = Hero.New("enemy");
             Sound.Play("fight");
-            Timer.Count(3);
+            Timer.Count(2);
             Fight.Start(hero, enemy, type);
         }
     }

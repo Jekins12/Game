@@ -61,6 +61,7 @@ namespace Game
 
             if (hero.HP <= 0)
             {
+                Sound.Play("fatality");
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(enemy.Name + " IS THE WINNER!");
                 hero.exp(3);
@@ -69,6 +70,7 @@ namespace Game
             }
             else
             {
+                Sound.Play("fatality");
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine(hero.Name + " IS THE WINNER!");
                 hero.exp(2);

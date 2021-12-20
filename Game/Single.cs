@@ -17,7 +17,7 @@ namespace Game
             Console.WriteLine("Press ENTER to fight!");
             Console.ReadLine();
             Sound.Play("fight");
-            Timer.Count(3);
+            Timer.Count(2);
             
             Fight.Start(hero, enemy, type);
         }
