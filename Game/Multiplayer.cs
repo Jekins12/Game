@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Game
 {
@@ -10,8 +6,13 @@ namespace Game
     {
         public static void Multi()
         {
-            Console.WriteLine("working on it...");
-            Console.ReadKey();
+            int type = 2;
+            Hero hero = Hero.Load("hero");
+            Console.WriteLine(hero.Name + " Str:{0} Dex:{1} Int:{2} HP:{3} MP:{4}", hero.GetStrength(), hero.GetDexterity(), hero.GetIntelligence(), hero.HP, hero.MP);
+            Console.WriteLine("\r\nNow create your enemy!\r\n");
+            Hero enemy=Hero.New("enemy");
+            Timer.Count(3);
+            Fight.Start(hero, enemy, type);
         }
     }
 }

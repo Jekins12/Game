@@ -14,7 +14,7 @@ namespace Game
                 switch (ans)
                 {
                     case 1:
-                        Hero.New();
+                        Hero.New("hero");
                         break;
 
                     case 2:
@@ -33,8 +33,7 @@ namespace Game
                         Environment.Exit(1);
                         break;
                 }
-            }
-            
+            }            
         }
     }
 }
