@@ -237,9 +237,9 @@ namespace Game
 
                 switch (opt)
                 {
-                    case 1: damage = Intelligence * rand.Run(3, 12) / 10; hero.MP -= 6; break;
+                    case 1: damage = Intelligence * rand.Run(6, 12) / 10; hero.MP -= 6; break;
 
-                    case 2: damage = Intelligence * rand.Run(2, 14) / 10; hero.MP -= 7; break;
+                    case 2: damage = Intelligence * rand.Run(5, 14) / 10; hero.MP -= 7; break;
 
                     case 3: hero.HP += 10; hero.MP -= 5; break;
 
