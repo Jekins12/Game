@@ -9,7 +9,6 @@ namespace Game
 
             while (true)
             {
-
                 int ans = Hero.Menu();
                 switch (ans)
                 {
@@ -32,6 +31,8 @@ namespace Game
                     case 5:
                         Environment.Exit(1);
                         break;
+
+                    default: Console.WriteLine("ERROR"); break;
                 }
             }
         }

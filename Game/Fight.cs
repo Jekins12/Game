@@ -80,5 +80,22 @@ namespace Game
             Console.Write("Press ENTER to return to the main menu: ");
             Console.ReadKey();
         }
+
+        public static bool Escape(Hero hero, Hero enemy)
+        {
+            Rand rand = new Rand();
+            Timer.Count(2, "escape");
+            if (hero.GetDexterity() >= enemy.GetDexterity() / 5 * rand.Run(1, 16))
+            {
+                Console.WriteLine("You successfully escaped!");
+                Console.Write("Press any key to return to the main menu...");
+                Console.ReadKey();
+                return true;
+            }
+            Console.WriteLine("Failed!");
+            Console.Write("Press any key to fight!");
+            Console.ReadKey();
+            return false;
+        }
     }
 }
