@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="bin\Debug\net5.0\hero.json" />
     <Content Include="sound\fatality.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

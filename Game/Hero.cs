@@ -41,7 +41,7 @@ namespace Game
             return answer;
         }
 
-        private void Init(int strength = 10, int dexterity = 10, int intelligence = 10)
+        private void Init(int strength = 10, int dexterity = 10, int intelligence = 10)     //FIX ENEMY HP
         {
             this.Strength = strength;
             this.Dexterity = dexterity;
@@ -57,7 +57,7 @@ namespace Game
                 Hero hero = new Hero("name", "class");
                 Console.Write("Name your hero!       (Press 'Esc' to return to the main menu)\n\r: ");
                 if (Console.ReadKey(true).Key == ConsoleKey.Escape)
-                    Menu();
+                    return null;
 
                 string name = Console.ReadLine();
                 hero.Name = name;
@@ -73,9 +73,8 @@ namespace Game
                     Console.WriteLine("[1] Strength" +
                         "  [2] Dexterity" +
                         "  [3] Intelligence");
-                    Console.Write(": ");
-                    int ans;
-                    int.TryParse(Console.ReadLine(), out ans);
+
+                    int ans = Key.Pressed(3);
                     if (ans == 1)
                         hero.Strength += 1;
 
@@ -89,6 +88,13 @@ namespace Game
                 }
                 Console.WriteLine("Hero created!");
                 Console.WriteLine("Str:{0} Dex:{1} Int:{2}", hero.GetStrength(), hero.GetDexterity(), hero.GetIntelligence());
+                Console.WriteLine("Save hero? y/n");
+                string answer = Console.ReadLine();
+                if (answer == "n")
+                {
+                    return null;
+                }
+
                 Save.save(hero.Name, hero.Strength, hero.Dexterity, hero.Intelligence, hero.LVL, hero.XP);
                 Console.WriteLine("Press ANY key to continue...");
                 Console.ReadKey();
@@ -102,7 +108,7 @@ namespace Game
                 Hero enemy = new Hero("name", "class");
                 Console.Write("Name your hero!       (Press 'Esc' to return to the main menu)\n\r: ");
                 if (Console.ReadKey(true).Key == ConsoleKey.Escape)
-                    Menu();
+                    return null;
                 
                 string name = Console.ReadLine();
                 enemy.Name = name;
@@ -118,9 +124,9 @@ namespace Game
                     Console.WriteLine("[1] Strength" +
                         "  [2] Dexterity" +
                         "  [3] Intelligence");
-                    Console.Write(": ");
-                    int ans;
-                    int.TryParse(Console.ReadLine(), out ans);
+
+                    int ans = Key.Pressed(3);
+                    
                     if (ans == 1)
                         enemy.Strength += 1;
 
@@ -132,8 +138,9 @@ namespace Game
 
                     Console.Clear();
                 }
+                
                 Console.WriteLine("Hero created!");
-                Console.WriteLine("Str:{0} Dex:{1} Int:{2}", enemy.GetStrength(), enemy.GetDexterity(), enemy.GetIntelligence());
+                Console.WriteLine("Str:{0} Dex:{1} Int:{2} MP:{3} HP:{4}", enemy.GetStrength(), enemy.GetDexterity(), enemy.GetIntelligence(),enemy.MP,enemy.HP);
                 Console.WriteLine("Press ANY key to continue...");
                 Console.ReadKey();
                 Console.Clear();
@@ -214,7 +221,7 @@ namespace Game
                     "[2] Frostbite\n\r" +
                     "[3] Heal\n\r" +
                     ": ");
-                        int.TryParse(Console.ReadLine(), out opt);
+                        opt=Key.Pressed(3);
                     }
                     else
                     {
@@ -230,7 +237,7 @@ namespace Game
                     "[2] Frostbite\n\r" +
                     "[3] Heal\n\r" +
                     ": ");
-                    int.TryParse(Console.ReadLine(), out opt);
+                    opt = Key.Pressed(3);
                 }
 
 
@@ -319,8 +326,8 @@ namespace Game
             {
                 Console.Write(i + " points left");
                 Console.Write("  1:Strength, 2:Dexterity, 3:Intelligence ... ");
-                int opt;
-                int.TryParse(Console.ReadLine(), out opt);
+                int opt=0;
+                opt = Key.Pressed(3);
 
                 switch (opt)
                 {

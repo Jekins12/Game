@@ -19,8 +19,9 @@ namespace Game
                 {
                     if (tour == 1)
                     {
-                        Console.Write("[1]:Attack, [2]:Spell... ");
-                        int.TryParse(Console.ReadLine(), out opt);
+                        Console.WriteLine("[1]:Attack, [2]:Spell... ");
+                        opt=Key.Pressed(2);  
+                       
                     }
                     else
                     {
@@ -32,8 +33,8 @@ namespace Game
 
                 else
                 {
-                    Console.Write("[1]:Attack, [2]:Spell... ");
-                    int.TryParse(Console.ReadLine(), out opt);
+                    Console.WriteLine("[1]:Attack, [2]:Spell... ");
+                    opt = Key.Pressed(2);
                 }
 
 
