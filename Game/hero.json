@@ -1,0 +1,10 @@
+{
+  "Name": "Geralt",
+  "Strength": 20,
+  "Dexterity": 10,
+  "Intelligence": 5,
+  "HP": 50,
+  "MP": 30,
+  "XP": 435,
+  "LVL": 1
+}

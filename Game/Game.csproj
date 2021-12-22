@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="hero.json" />
     <None Remove="sound\fatality.wav" />
     <None Remove="sound\fight.wav" />
     <None Remove="sound\fireball.wav" />
@@ -24,6 +25,9 @@
 
   <ItemGroup>
     <Content Include="bin\Debug\net5.0\hero.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="hero.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="sound\fatality.wav">
