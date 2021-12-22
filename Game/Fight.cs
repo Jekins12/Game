@@ -26,7 +26,6 @@ namespace Game
                     else
                     {
                         Random rnd = new Random();
-
                         opt = rnd.Next(1, 3);
                     }
                 }
@@ -54,7 +53,10 @@ namespace Game
                 Console.WriteLine(hero.Name + " HP:{0} MP:{1}", hero.HP, hero.MP);
                 Console.WriteLine();
                 Console.WriteLine(enemy.Name + " HP:{0} MP:{1}", enemy.HP, enemy.MP);
-                Console.ReadLine();
+                if (type == 1)
+                    Timer.Count(1, null);
+                else
+                    Console.ReadLine();
 
                 tour++;
                 if (tour > 2) tour = 1;

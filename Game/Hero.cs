@@ -8,9 +8,9 @@ namespace Game
     public class Hero
     {
         public string Name;
-        private int Strength;
-        private int Dexterity;
-        private int Intelligence;
+        private int Strength=0;
+        private int Dexterity=0;
+        private int Intelligence=0;
         public int HP;
         public int MP;
         public int XP;
@@ -41,111 +41,27 @@ namespace Game
             return answer;
         }
 
-        private void Init(int strength = 10, int dexterity = 10, int intelligence = 10)     //FIX ENEMY HP
+        private void Init(int str,int dex, int intl) 
         {
-            this.Strength = strength;
-            this.Dexterity = dexterity;
-            this.Intelligence = intelligence;
-            HP = 50 + strength * 2;
-            MP = 30 + intelligence * 3;
+            Strength = str;
+            Dexterity = dex;
+            Intelligence = intl;
+            HP = 50 + Strength * 2;
+            MP = 30 + Intelligence * 3;
         }
-
+        
         public static Hero New(string who)
         {
             if (who == "hero")
             {             
-                Hero hero = new Hero("name", "class");
-                Console.Write("Name your hero!       (Press 'Esc' to return to the main menu)\n\r: ");
-                if (Console.ReadKey(true).Key == ConsoleKey.Escape)
-                    return null;
-
-                string name = Console.ReadLine();
-                hero.Name = name;
-                Console.WriteLine("Well, now you have 20 points, u can upgrade any stats you want");
-                hero.Strength = 5;
-                hero.Dexterity = 5;
-                hero.Intelligence = 5;
-                hero.LVL = 1;
-                hero.XP = 0;
-                for (int i = 20; i > 0; i--)
-                {
-                    Console.WriteLine("Str:{0} Dex:{1} Int:{2}", hero.GetStrength(), hero.GetDexterity(), hero.GetIntelligence() + " points left:" + i);
-                    Console.WriteLine("[1] Strength" +
-                        "  [2] Dexterity" +
-                        "  [3] Intelligence");
-
-                    int ans = Key.Pressed(3);
-                    if (ans == 1)
-                        hero.Strength += 1;
-
-                    else if (ans == 2)
-                        hero.Dexterity += 1;
-
-                    else
-                        hero.Intelligence += 1;
-
-                    Console.Clear();
-                }
-                Console.WriteLine("Hero created!");
-                Console.WriteLine("Str:{0} Dex:{1} Int:{2}", hero.GetStrength(), hero.GetDexterity(), hero.GetIntelligence());
-                Console.WriteLine("Save hero? y/n");
-                string answer = Console.ReadLine();
-                if (answer == "n")
-                {
-                    return null;
-                }
-
-                Save.save(hero.Name, hero.Strength, hero.Dexterity, hero.Intelligence, hero.LVL, hero.XP);
-                Console.WriteLine("Press ANY key to continue...");
-                Console.ReadKey();
-                Console.Clear();
-                who =null;
-                return hero;
+                return Hero.Character("hero");
             }
 
             else if (who == "enemy")
-            {
-                Hero enemy = new Hero("name", "class");
-                Console.Write("Name your hero!       (Press 'Esc' to return to the main menu)\n\r: ");
-                if (Console.ReadKey(true).Key == ConsoleKey.Escape)
-                    return null;
-                
-                string name = Console.ReadLine();
-                enemy.Name = name;
-                Console.WriteLine("Well, now you have 20 points, u can upgrade any stats you want");
-                enemy.Strength = 5;
-                enemy.Dexterity = 5;
-                enemy.Intelligence = 5;
-                enemy.LVL = 1;
-                enemy.XP = 0;
-                for (int i = 20; i > 0; i--)
-                {
-                    Console.WriteLine("Str:{0} Dex:{1} Int:{2}", enemy.GetStrength(), enemy.GetDexterity(), enemy.GetIntelligence() + " points left:" + i);
-                    Console.WriteLine("[1] Strength" +
-                        "  [2] Dexterity" +
-                        "  [3] Intelligence");
-
-                    int ans = Key.Pressed(3);
-                    
-                    if (ans == 1)
-                        enemy.Strength += 1;
-
-                    else if (ans == 2)
-                        enemy.Dexterity += 1;
-
-                    else
-                        enemy.Intelligence += 1;
-
-                    Console.Clear();
-                }
-                
-                Console.WriteLine("Hero created!");
-                Console.WriteLine("Str:{0} Dex:{1} Int:{2} MP:{3} HP:{4}", enemy.GetStrength(), enemy.GetDexterity(), enemy.GetIntelligence(),enemy.MP,enemy.HP);
-                Console.WriteLine("Press ANY key to continue...");
-                Console.ReadKey();
-                Console.Clear();
-                return enemy;
+            {           
+                return Hero.Character("enemy");
             }
+
             else
                 Console.WriteLine("Something went wrong :( ");
             return null;
@@ -156,7 +72,7 @@ namespace Game
             name = name + ".json";
             string heroString = File.ReadAllText(name);
             JObject heroJson = JObject.Parse(heroString);
-            Hero hero = new Hero("name", "class");
+            Hero hero = new Hero("name", "class",0,0,0);
             hero.Name = (string)heroJson["Name"];
             hero.Strength = (int)heroJson["Strength"];
             hero.Dexterity = (int)heroJson["Dexterity"];
@@ -182,18 +98,20 @@ namespace Game
 
         public void UpIntelligence() { this.Intelligence += 1; this.MP += (3 * this.Intelligence); }
 
-        public Hero(string name, string myclass)
+        public Hero (string name, string myclass,int str,int dex, int intl)
         {
+            
             Name = name;
+            
             switch (myclass)
             {
                 case "warior": Init(15, 10, 5); break;
-                case "assassin": Init(15, 15, 5); break;
+                case "assassin": Init(10, 15, 5); break;
                 case "sorcerer": Init(10, 5, 20); break;
-                default: Init(); break;
+                default: Init(str, dex, intl); break;
             }
         }
-
+        
         public void Attack(Hero enemy, string atk, Hero hero, int tour, int type)
         {
             int opt = 0;
@@ -341,6 +259,68 @@ namespace Game
 
         }
 
+        public static Hero Character(string who)
+        {
+
+            Console.Write("Name your hero!       (Press 'Esc' to return to the main menu)\n\r: ");
+            if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+                return null;
+
+            string name = Console.ReadLine();
+            Console.Clear();
+            Console.WriteLine("Well, now you have 20 points, u can upgrade any stats you want");
+            int Strength = 5;
+            int Dexterity = 5;
+            int Intelligence = 5;
+
+            for (int i = 20; i > 0; i--)
+            {
+                Console.WriteLine("Str:{0} Dex:{1} Int:{2}", Strength, Dexterity, Intelligence + " points left:" + i);
+                Console.WriteLine("[1] Strength" +
+                    "  [2] Dexterity" +
+                    "  [3] Intelligence");
+
+                int ans = Key.Pressed(3);
+
+                if (ans == 1)
+                    Strength += 1;
+
+                else if (ans == 2)
+                    Dexterity += 1;
+
+                else
+                    Intelligence += 1;
+
+                Console.Clear();
+            }
+
+            if (who == "enemy")
+            {
+                Hero enemy = new Hero(name, "class", Strength, Dexterity, Intelligence);
+                Console.WriteLine("Hero created!");
+                Console.WriteLine("Str:{0} Dex:{1} Int:{2} MP:{3} HP:{4}", enemy.GetStrength(), enemy.GetDexterity(), enemy.GetIntelligence(), enemy.MP, enemy.HP);
+                Console.WriteLine("Press ANY key to continue...");
+                Console.ReadKey();
+                Console.Clear();
+                return enemy;
+            }
+
+            else if (who == "hero")
+            {
+                Hero hero = new Hero(name, "class", Strength, Dexterity, Intelligence);
+                hero.LVL = 1;
+                hero.XP = 0;
+                Console.WriteLine("Hero created!");
+                Console.WriteLine("Str:{0} Dex:{1} Int:{2} HP:{3}", hero.GetStrength(), hero.GetDexterity(), hero.GetIntelligence(), hero.HP);
+                Save.save(hero.Name, hero.Strength, hero.Dexterity, hero.Intelligence, hero.LVL, hero.XP);
+                Console.WriteLine("Press ANY key to continue...");
+                Console.ReadKey();
+                Console.Clear();
+                return hero;
+            }
+
+            return null;
+        }
     }
 }
 
