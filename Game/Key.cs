@@ -16,6 +16,10 @@ namespace Game
                     case ConsoleKey.D2: opt = 2; break;
 
                     case ConsoleKey.D3: opt = 3; break;
+
+                    case ConsoleKey.D4: opt = 4; break;
+
+                    case ConsoleKey.D5: opt = 5; break;
                 }
                 if (opt > num)
                 {

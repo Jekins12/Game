@@ -4,9 +4,9 @@ namespace Game
 {
     class Timer
     {
-        public static void Count(int x, string print)
+        public static void Count(int counts, string print, int durationMS)
         {
-            for (int a = x; a >= 0; a--)
+            for (int a = counts; a >= 0; a--)
             {
                 if (print == "fight")
                 {
@@ -18,13 +18,13 @@ namespace Game
                     Console.Clear();
                     switch (a)
                     {
-                        case 2: Console.Write("Escaping."); break; 
+                        case 2: Console.Write("Escaping."); break;
                         case 1: Console.Write("Escaping.."); break;
                         case 0: Console.Write("Escaping..."); break;
 
                     }
                 }
-                System.Threading.Thread.Sleep(1000);
+                System.Threading.Thread.Sleep(durationMS);
             }
         }
     }

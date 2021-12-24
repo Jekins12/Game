@@ -6,7 +6,7 @@ namespace Game
     {
         static void Main(string[] args)
         {
-
+            IfExist.Json();
             while (true)
             {
                 int ans = Hero.Menu();
@@ -31,8 +31,6 @@ namespace Game
                     case 5:
                         Environment.Exit(1);
                         break;
-
-                    default: Console.WriteLine("ERROR"); break;
                 }
             }
         }

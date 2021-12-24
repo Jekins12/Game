@@ -8,9 +8,9 @@ namespace Game
     public class Hero
     {
         public string Name;
-        private int Strength=0;
-        private int Dexterity=0;
-        private int Intelligence=0;
+        private int Strength = 0;
+        private int Dexterity = 0;
+        private int Intelligence = 0;
         public int HP;
         public int MP;
         public int XP;
@@ -36,12 +36,11 @@ namespace Game
             "[3] Play multiplayer\n\r" +
             "[4] Show hero stats\n\r" +
             "[5] Exit\n:");
-            answer = 0;
-            int.TryParse(Console.ReadLine(), out answer);
+            answer = Key.Pressed(5);
             return answer;
         }
 
-        private void Init(int str,int dex, int intl) 
+        private void Init(int str, int dex, int intl)
         {
             Strength = str;
             Dexterity = dex;
@@ -49,16 +48,16 @@ namespace Game
             HP = 50 + Strength * 2;
             MP = 30 + Intelligence * 3;
         }
-        
+
         public static Hero New(string who)
         {
             if (who == "hero")
-            {             
+            {
                 return Hero.Character("hero");
             }
 
             else if (who == "enemy")
-            {           
+            {
                 return Hero.Character("enemy");
             }
 
@@ -70,9 +69,10 @@ namespace Game
         public static Hero Load(string name)
         {
             name = name + ".json";
+            Hero hero = new Hero("name", "class", 0, 0, 0);
+
             string heroString = File.ReadAllText(name);
             JObject heroJson = JObject.Parse(heroString);
-            Hero hero = new Hero("name", "class",0,0,0);
             hero.Name = (string)heroJson["Name"];
             hero.Strength = (int)heroJson["Strength"];
             hero.Dexterity = (int)heroJson["Dexterity"];
@@ -81,8 +81,6 @@ namespace Game
             hero.MP = 30 + hero.Intelligence * 3;
             hero.XP = (int)heroJson["XP"];
             hero.LVL = (int)heroJson["LVL"];
-
-
             return hero;
         }
 
@@ -98,11 +96,11 @@ namespace Game
 
         public void UpIntelligence() { this.Intelligence += 1; this.MP += (3 * this.Intelligence); }
 
-        public Hero (string name, string myclass,int str,int dex, int intl)
+        public Hero(string name, string myclass, int str, int dex, int intl)
         {
-            
+
             Name = name;
-            
+
             switch (myclass)
             {
                 case "warior": Init(15, 10, 5); break;
@@ -111,7 +109,7 @@ namespace Game
                 default: Init(str, dex, intl); break;
             }
         }
-        
+
         public void Attack(Hero enemy, string atk, Hero hero, int tour, int type)
         {
             int opt = 0;
@@ -139,7 +137,7 @@ namespace Game
                     "[2] Frostbite\n\r" +
                     "[3] Heal\n\r" +
                     ": ");
-                        opt=Key.Pressed(3);
+                        opt = Key.Pressed(3);
                     }
                     else
                     {
@@ -244,7 +242,7 @@ namespace Game
             {
                 Console.Write(i + " points left");
                 Console.Write("  1:Strength, 2:Dexterity, 3:Intelligence ... ");
-                int opt=0;
+                int opt = 0;
                 opt = Key.Pressed(3);
 
                 switch (opt)

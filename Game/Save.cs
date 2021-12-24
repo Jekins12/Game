@@ -8,7 +8,9 @@ namespace Game
     {
         public static void save(string name, int str, int dex, int intl, int lvl, int xp)
         {
-            string data = File.ReadAllText("./hero.json");
+
+            string path = "./hero.json";
+            string data = File.ReadAllText(path);
             JObject Hero = JObject.Parse(data);
             if (name != "default")
             {
@@ -20,7 +22,6 @@ namespace Game
             Hero["XP"] = xp;
             Hero["LVL"] = lvl;
             File.WriteAllText("./hero.json", Hero.ToString());
-
         }
     }
 }

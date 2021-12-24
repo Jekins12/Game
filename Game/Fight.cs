@@ -20,8 +20,8 @@ namespace Game
                     if (tour == 1)
                     {
                         Console.WriteLine("[1]:Attack, [2]:Spell... ");
-                        opt=Key.Pressed(2);  
-                       
+                        opt = Key.Pressed(2);
+
                     }
                     else
                     {
@@ -54,7 +54,7 @@ namespace Game
                 Console.WriteLine();
                 Console.WriteLine(enemy.Name + " HP:{0} MP:{1}", enemy.HP, enemy.MP);
                 if (type == 1)
-                    Timer.Count(1, null);
+                    Timer.Count(1, null,1000);
                 else
                     Console.ReadLine();
 
@@ -87,7 +87,7 @@ namespace Game
         public static bool Escape(Hero hero, Hero enemy)
         {
             Rand rand = new Rand();
-            Timer.Count(2, "escape");
+            Timer.Count(2, "escape",1000);
             if (hero.GetDexterity() >= enemy.GetDexterity() / 5 * rand.Run(1, 16))
             {
                 Console.WriteLine("You successfully escaped!");
