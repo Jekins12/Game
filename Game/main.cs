@@ -6,9 +6,11 @@ namespace Game
     {
         static void Main(string[] args)
         {
+           
             IfExist.Json();
             while (true)
             {
+                
                 int ans = Hero.Menu();
                 switch (ans)
                 {

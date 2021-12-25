@@ -103,9 +103,9 @@ namespace Game
 
             switch (myclass)
             {
-                case "warior": Init(15, 10, 5); break;
-                case "assassin": Init(10, 15, 5); break;
-                case "sorcerer": Init(10, 5, 20); break;
+                case "warrior": Init(25, 10, 7); break;
+                case "assassin": Init(15, 20, 10); break;
+                case "sorcerer": Init(15, 7, 25); break;
                 default: Init(str, dex, intl); break;
             }
         }
@@ -160,11 +160,11 @@ namespace Game
 
                 switch (opt)
                 {
-                    case 1: damage = Intelligence * rand.Run(6, 12) / 10; hero.MP -= 6; break;
+                    case 1: damage = Intelligence * rand.Run(6, 13) / 10; hero.MP -= 6; break;
 
-                    case 2: damage = Intelligence * rand.Run(5, 14) / 10; hero.MP -= 7; break;
+                    case 2: damage = Intelligence * rand.Run(8, 15) / 10; hero.MP -= 8; break;
 
-                    case 3: hero.HP += 10; hero.MP -= 5; break;
+                    case 3: hero.HP += 5+Intelligence/2; hero.MP -= 5; break;
 
                 }
 

@@ -25,8 +25,18 @@ namespace Game
                     }
                     else
                     {
-                        Random rnd = new Random();
-                        opt = rnd.Next(1, 3);
+                        if (enemy.GetStrength() - enemy.GetIntelligence() >= 10)
+                            opt = 1;
+
+                        else if (enemy.GetIntelligence() - enemy.GetStrength() >= 10)
+                            opt = 2;
+                        
+                        else
+                        {
+                            Random rnd = new Random();
+                            opt = rnd.Next(1, 3);
+                        }
+                        
                     }
                 }
 
