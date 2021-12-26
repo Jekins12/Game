@@ -7,6 +7,7 @@ namespace Game
 
     public class Hero
     {
+
         public string Name;
         private int Strength = 0;
         private int Dexterity = 0;
@@ -40,226 +41,8 @@ namespace Game
             return answer;
         }
 
-        private void Init(int str, int dex, int intl)
+        public static Hero New()
         {
-            Strength = str;
-            Dexterity = dex;
-            Intelligence = intl;
-            HP = 50 + Strength * 2;
-            MP = 30 + Intelligence * 3;
-        }
-
-        public static Hero New(string who)
-        {
-            if (who == "hero")
-            {
-                return Hero.Character("hero");
-            }
-
-            else if (who == "enemy")
-            {
-                return Hero.Character("enemy");
-            }
-
-            else
-                Console.WriteLine("Something went wrong :( ");
-            return null;
-        }
-
-        public static Hero Load(string name)
-        {
-            name = name + ".json";
-            Hero hero = new Hero("name", "class", 0, 0, 0);
-
-            string heroString = File.ReadAllText(name);
-            JObject heroJson = JObject.Parse(heroString);
-            hero.Name = (string)heroJson["Name"];
-            hero.Strength = (int)heroJson["Strength"];
-            hero.Dexterity = (int)heroJson["Dexterity"];
-            hero.Intelligence = (int)heroJson["Intelligence"];
-            hero.HP = 50 + hero.Strength * 2;
-            hero.MP = 30 + hero.Intelligence * 3;
-            hero.XP = (int)heroJson["XP"];
-            hero.LVL = (int)heroJson["LVL"];
-            return hero;
-        }
-
-        public int GetStrength() { return Strength; }
-
-        public int GetDexterity() { return Dexterity; }
-
-        public int GetIntelligence() { return Intelligence; }
-
-        public void UpStrength() { this.Strength += 1; this.HP += 5; }
-
-        public void UpDexterity() { this.Dexterity += 1; }
-
-        public void UpIntelligence() { this.Intelligence += 1; this.MP += (3 * this.Intelligence); }
-
-        public Hero(string name, string myclass, int str, int dex, int intl)
-        {
-
-            Name = name;
-
-            switch (myclass)
-            {
-                case "warrior": Init(25, 10, 7); break;
-                case "assassin": Init(15, 20, 10); break;
-                case "sorcerer": Init(15, 7, 25); break;
-                default: Init(str, dex, intl); break;
-            }
-        }
-
-        public void Attack(Hero enemy, string atk, Hero hero, int tour, int type)
-        {
-            int opt = 0;
-
-            if (atk == "Intelligence" && MP < 5)
-            {
-                Console.WriteLine("Not enough mana, attack melee");
-                atk = "Strength";
-            }
-
-            int damage = 0;
-            Rand rand = new Rand();
-            if (atk == "Strength")
-            {
-                damage = Strength * rand.Run(5, 10) / 10;
-            }
-            else if (atk == "Intelligence")
-            {
-                if (type == 1)
-                {
-                    if (tour == 1)
-                    {
-                        Console.Write("Pick a spell:\n\r" +
-                    "[1] Fireball\n\r" +
-                    "[2] Frostbite\n\r" +
-                    "[3] Heal\n\r" +
-                    ": ");
-                        opt = Key.Pressed(3);
-                    }
-                    else
-                    {
-                        Random rnd = new Random();
-                        opt = rnd.Next(1, 4);
-                    }
-                }
-
-                else
-                {
-                    Console.Write("Pick a spell:\n\r" +
-                    "[1] Fireball\n\r" +
-                    "[2] Frostbite\n\r" +
-                    "[3] Heal\n\r" +
-                    ": ");
-                    opt = Key.Pressed(3);
-                }
-
-
-
-                switch (opt)
-                {
-                    case 1: damage = Intelligence * rand.Run(6, 13) / 10; hero.MP -= 6; break;
-
-                    case 2: damage = Intelligence * rand.Run(8, 15) / 10; hero.MP -= 8; break;
-
-                    case 3: hero.HP += 5+Intelligence/2; hero.MP -= 5; break;
-
-                }
-
-            }
-
-
-            if (opt == 0 && rand.Run(0, 100) > enemy.GetDexterity())
-            {
-                Console.WriteLine("Bang!      " + "damage=" + damage);
-                enemy.HP -= damage;
-                Sound.Play("hit");
-                if (tour == 1)
-                {
-                    exp(1);
-                }
-            }
-
-            else if (opt == 1 && rand.Run(0, 100) > enemy.GetDexterity())
-            {
-                Sound.Play("fireball");
-                Console.WriteLine("Fireball!      " + "damage=" + damage);
-                enemy.HP -= damage;
-                if (tour == 1)
-                {
-                    exp(1);
-                }
-            }
-
-            else if (opt == 2 && rand.Run(0, 100) > enemy.GetDexterity())
-            {
-                Sound.Play("frostbite");
-                Console.WriteLine("Frostbite!      " + "damage=" + damage);
-                enemy.HP -= damage;
-                if (tour == 1)
-                {
-                    exp(1);
-                }
-            }
-
-            else if (opt == 3)
-            {
-                Sound.Play("heal");
-                Console.WriteLine("Healed!");
-                if (tour == 1)
-                {
-                    exp(1);
-                }
-            }
-            else Console.WriteLine("Dodge!");
-        }
-
-        public int exp(int opt)
-        {
-            if (XP >= (LVL * 1000))
-            {
-                XP -= (LVL * 1000);
-                LevelUp();
-            }
-            switch (opt)
-            {
-                case 1: XP += 5; break;
-                case 2: XP += 100; break;
-                case 3: XP += 30; break;
-            }
-
-            return XP;
-        }
-
-        public void LevelUp()
-        {
-            LVL += 1;
-            Console.WriteLine("Level up!" +
-                "\n\rYou have 3 points, choose wisely!");
-            for (int i = 3; i > 0; i--)
-            {
-                Console.Write(i + " points left");
-                Console.Write("  1:Strength, 2:Dexterity, 3:Intelligence ... ");
-                int opt = 0;
-                opt = Key.Pressed(3);
-
-                switch (opt)
-                {
-                    case 1: UpStrength(); break;
-                    case 2: UpDexterity(); break;
-                    case 3: UpIntelligence(); break;
-                }
-
-                Console.Clear();
-            }
-
-        }
-
-        public static Hero Character(string who)
-        {
-
             Console.Write("Name your hero!       (Press 'Esc' to return to the main menu)\n\r: ");
             if (Console.ReadKey(true).Key == ConsoleKey.Escape)
                 return null;
@@ -292,33 +75,101 @@ namespace Game
                 Console.Clear();
             }
 
-            if (who == "enemy")
-            {
-                Hero enemy = new Hero(name, "class", Strength, Dexterity, Intelligence);
-                Console.WriteLine("Hero created!");
-                Console.WriteLine("Str:{0} Dex:{1} Int:{2} MP:{3} HP:{4}", enemy.GetStrength(), enemy.GetDexterity(), enemy.GetIntelligence(), enemy.MP, enemy.HP);
-                Console.WriteLine("Press ANY key to continue...");
-                Console.ReadKey();
-                Console.Clear();
-                return enemy;
-            }
-
-            else if (who == "hero")
-            {
-                Hero hero = new Hero(name, "class", Strength, Dexterity, Intelligence);
-                hero.LVL = 1;
-                hero.XP = 0;
-                Console.WriteLine("Hero created!");
-                Console.WriteLine("Str:{0} Dex:{1} Int:{2} HP:{3}", hero.GetStrength(), hero.GetDexterity(), hero.GetIntelligence(), hero.HP);
-                Save.save(hero.Name, hero.Strength, hero.Dexterity, hero.Intelligence, hero.LVL, hero.XP);
-                Console.WriteLine("Press ANY key to continue...");
-                Console.ReadKey();
-                Console.Clear();
-                return hero;
-            }
-
-            return null;
+            Hero hero = new Hero(name, Strength, Dexterity, Intelligence);
+            hero.LVL = 1;
+            hero.XP = 0;
+            Console.WriteLine("Hero created!");
+            Console.WriteLine("Str:{0} Dex:{1} Int:{2} HP:{3}", hero.GetStrength(), hero.GetDexterity(), hero.GetIntelligence(), hero.HP);
+            Save.save(hero.Name, hero.Strength, hero.Dexterity, hero.Intelligence, hero.LVL, hero.XP);
+            Console.WriteLine("Press ANY key to continue...");
+            Console.ReadKey();
+            Console.Clear();
+            return hero;
         }
+
+        public static Hero Load(string name)
+        {
+            name = name + ".json";
+            Hero hero = new Hero("name", 0, 0, 0);
+
+            string heroString = File.ReadAllText(name);
+            JObject heroJson = JObject.Parse(heroString);
+            hero.Name = (string)heroJson["Name"];
+            hero.Strength = (int)heroJson["Strength"];
+            hero.Dexterity = (int)heroJson["Dexterity"];
+            hero.Intelligence = (int)heroJson["Intelligence"];
+            hero.HP = 50 + hero.Strength * 2;
+            hero.MP = 30 + hero.Intelligence * 3;
+            hero.XP = (int)heroJson["XP"];
+            hero.LVL = (int)heroJson["LVL"];
+            return hero;
+        }
+
+        public int GetStrength() { return Strength; }
+
+        public int GetDexterity() { return Dexterity; }
+
+        public int GetIntelligence() { return Intelligence; }
+
+        public void UpStrength() { this.Strength += 1; this.HP += 5; }
+
+        public void UpDexterity() { this.Dexterity += 1; }
+
+        public void UpIntelligence() { this.Intelligence += 1; this.MP += (3 * this.Intelligence); }
+
+        public Hero(string name, int str, int dex, int intl)
+        {
+
+            Name = name;
+            Strength = str;
+            Dexterity = dex;
+            Intelligence = intl;
+            HP = 50 + Strength * 2;
+            MP = 30 + Intelligence * 3;
+        }
+
+        public static int exp(int opt, string name)
+        {
+            Hero hero = Load("hero");
+            if (hero.XP >= (hero.LVL * 1000))
+            {
+                hero.XP -= (hero.LVL * 1000);
+                hero.LevelUp();
+            }
+            switch (opt)
+            {
+                case 1: hero.XP += 5; break;
+                case 2: hero.XP += 100; break;
+                case 3: hero.XP += 30; break;
+            }
+
+            return hero.XP;
+        }
+
+        public void LevelUp()
+        {
+            LVL += 1;
+            Console.WriteLine("Level up!" +
+                "\n\rYou have 3 points, choose wisely!");
+            for (int i = 3; i > 0; i--)
+            {
+                Console.Write(i + " points left");
+                Console.Write("  1:Strength, 2:Dexterity, 3:Intelligence ... ");
+                int opt = 0;
+                opt = Key.Pressed(3);
+
+                switch (opt)
+                {
+                    case 1: UpStrength(); break;
+                    case 2: UpDexterity(); break;
+                    case 3: UpIntelligence(); break;
+                }
+
+                Console.Clear();
+            }
+
+        }
+
     }
 }
 

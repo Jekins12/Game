@@ -6,16 +6,16 @@ namespace Game
     {
         static void Main(string[] args)
         {
-           
+
             IfExist.Json();
             while (true)
             {
-                
+
                 int ans = Hero.Menu();
                 switch (ans)
                 {
                     case 1:
-                        Hero.New("hero");
+                        Hero.New();
                         break;
 
                     case 2:
