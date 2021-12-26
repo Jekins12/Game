@@ -54,19 +54,18 @@ namespace Game
                 switch (opt)
                 {
                     case 1:
-                        if (tour == 1) attack.Attack(enemy, "Strength", hero, tour, type);
-                        else attack.Attack(enemy, "Strength", hero, tour, type);
+                        if (tour == 1) Attack.attack(enemy, "Strength", hero, tour, type);
+                        else Attack.attack(enemy, "Strength", hero, tour, type);
                         break;
 
                     case 2:
-                        if (tour == 1) attack.Attack(enemy, "Intelligence", hero, tour, type);
-                        else attack.Attack(enemy, "Intelligence", hero, tour, type);
+                        if (tour == 1) Attack.attack(enemy, "Intelligence", hero, tour, type);
+                        else Attack.attack(enemy, "Intelligence", hero, tour, type);
                         break;
                 }
-
-
+                
                 if (type == 1)
-                    Timer.Count(1, null, 500);
+                    Timer.Count(1, null, 1000);
                 else
                     Console.ReadLine();
 

@@ -2,10 +2,11 @@
 
 namespace Game
 {
-    class attack
+    class Attack
     {
-        public static void Attack(Enemy enemy, string atk, Hero hero, int tour, int type)
+        public static void attack(Enemy enemy, string atk, Hero hero, int tour, int type)
         {
+            bool flag;
             int opt = 0;
             if (tour == 1)
             {
@@ -32,9 +33,9 @@ namespace Game
             {
                 if (tour == 1)
                 {
-                    damage = hero.GetStrength() * rand.Run(5, 10) / 10;
+                    damage = hero.GetStrength() * rand.Run(6, 13) / 10;
                 }
-                else damage = enemy.GetStrength() * rand.Run(5, 10) / 10;
+                else damage = enemy.GetStrength() * rand.Run(6, 13) / 10;
 
 
             }
@@ -97,80 +98,72 @@ namespace Game
 
             }
 
-            if (tour == 1)
+            flag = true;
+            if (tour == 1 && rand.Run(0, 100) > enemy.GetDexterity())
             {
-                if (opt == 0 && rand.Run(0, 100) > enemy.GetDexterity())
+                flag = false;
+                if (opt == 0)
                 {
                     Console.WriteLine("Bang!      " + "damage=" + damage);
                     enemy.HP -= damage;
                     Sound.Play("hit");
                     Hero.exp(1, hero.Name);
                 }
-
-            }
-
-            else
-            {
-                if (opt == 0 && rand.Run(0, 100) > hero.GetDexterity())
-                {
-                    Console.WriteLine("Bang!      " + "damage=" + damage);
-                    hero.HP -= damage;
-                    Sound.Play("hit");
-                }
-            }
-
-
-            if (tour == 1)
-            {
-                if (opt == 1 && rand.Run(0, 100) > enemy.GetDexterity())
+                else if (opt == 1)
                 {
                     Sound.Play("fireball");
                     Console.WriteLine("Fireball!      " + "damage=" + damage);
                     enemy.HP -= damage;
                     Hero.exp(1, hero.Name);
                 }
-            }
-            else
-            {
-                if (opt == 1 && rand.Run(0, 100) > hero.GetDexterity())
-                {
-                    Sound.Play("fireball");
-                    Console.WriteLine("Fireball!      " + "damage=" + damage);
-                    hero.HP -= damage;
-                }
-            }
-
-
-            if (tour == 1)
-            {
-                if (opt == 2 && rand.Run(0, 100) > enemy.GetDexterity())
+                else if (opt == 2)
                 {
                     Sound.Play("frostbite");
                     Console.WriteLine("Frostbite!      " + "damage=" + damage);
                     enemy.HP -= damage;
                     Hero.exp(1, hero.Name);
                 }
-            }
-            else
-            {
-                if (opt == 2 && rand.Run(0, 100) > hero.GetDexterity())
-                {
-                    Sound.Play("frostbite");
-                    Console.WriteLine("Frostbite!      " + "damage=" + damage);
-                    hero.HP -= damage;
-                }
-            }
-
-            if (tour == 1)
-            {
-                if (opt == 3)
+                else if (opt == 3)
                 {
                     Sound.Play("heal");
                     Console.WriteLine("Healed!");
                     Hero.exp(1, hero.Name);
                 }
             }
-            else Console.WriteLine("Dodge!");
+
+            else if(tour==1 && flag) Console.WriteLine("Dodge!");
+
+
+            if (tour == 2 && rand.Run(0, 100) > hero.GetDexterity())
+            {
+                flag = false;
+
+                if (opt == 0)
+                {
+                    Console.WriteLine("Bang!      " + "damage=" + damage);
+                    hero.HP -= damage;
+                    Sound.Play("hit");
+                }
+                else if (opt == 1)
+                {
+                    Sound.Play("fireball");
+                    Console.WriteLine("Fireball!      " + "damage=" + damage);
+                    hero.HP -= damage;
+                }
+                else if (opt == 2)
+                {
+                    Sound.Play("frostbite");
+                    Console.WriteLine("Frostbite!      " + "damage=" + damage);
+                    hero.HP -= damage;
+                }
+                else if (opt == 3)
+                {
+                    Sound.Play("heal");
+                    Console.WriteLine("Healed!");
+                }
+            }
+
+            else if(tour==2 && flag) Console.WriteLine("Dodge!");
         }
     }
 }

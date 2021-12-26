@@ -21,15 +21,16 @@ namespace Game
         {
             if (type == 1)
             {
-                string[] enemies_name = { "Undead Priest", "Dark Paladin", "Asian boy" };
+                string[] enemies_name = { "Undead Priest", "Dark Paladin", "Asian boy"};
                 int[,] enemies_stats =
                 {
                 {15,7,25},  //Srength,Dexterity,Intelligence
                 {25,10,7},
                 {15,25,10}
             };
+
                 Rand rand = new Rand();
-                int who = rand.Run(0, 2);
+                int who = rand.Run(0, enemies_name.Length-1);
                 Name = enemies_name[who];
                 Strength = enemies_stats[who, 0];
                 Dexterity = enemies_stats[who, 1];
