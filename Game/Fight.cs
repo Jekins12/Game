@@ -79,7 +79,7 @@ namespace Game
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(enemy.Name + " IS THE WINNER!");
                 Hero.exp(3, hero.Name);
-                Save.save("default", hero.GetStrength(), hero.GetDexterity(), hero.GetIntelligence(), hero.LVL, hero.XP);
+                
                 Console.ForegroundColor = ConsoleColor.White;
             }
             else
@@ -88,7 +88,7 @@ namespace Game
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine(hero.Name + " IS THE WINNER!");
                 Hero.exp(2, hero.Name);
-                Save.save("default", hero.GetStrength(), hero.GetDexterity(), hero.GetIntelligence(), hero.LVL, hero.XP);
+                //Save.save("default", hero.GetStrength(), hero.GetDexterity(), hero.GetIntelligence(), hero.LVL, hero.XP);
                 Console.ForegroundColor = ConsoleColor.White;
             }
             Console.Write("Press ENTER to return to the main menu: ");

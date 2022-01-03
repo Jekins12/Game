@@ -128,7 +128,7 @@ namespace Game
             MP = 30 + Intelligence * 3;
         }
 
-        public static int exp(int opt, string name)
+        public static void exp(int opt, string name)
         {
             Hero hero = Load("hero");
             if (hero.XP >= (hero.LVL * 1000))
@@ -142,8 +142,8 @@ namespace Game
                 case 2: hero.XP += 100; break;
                 case 3: hero.XP += 30; break;
             }
-
-            return hero.XP;
+            Save.save("default", hero.GetStrength(), hero.GetDexterity(), hero.GetIntelligence(), hero.LVL, hero.XP);
+            //return hero.XP;
         }
 
         public void LevelUp()
@@ -167,7 +167,7 @@ namespace Game
 
                 Console.Clear();
             }
-
+            Save.save("default", Strength, Dexterity, Intelligence, LVL, XP);
         }
 
     }
