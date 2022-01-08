@@ -78,7 +78,7 @@ namespace Game
                 Sound.Play("fatality");
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(enemy.Name + " IS THE WINNER!");
-                Hero.exp(3, hero.Name);
+                Hero.Exp(3);
                 Save.save("default", hero.GetStrength(), hero.GetDexterity(), hero.GetIntelligence(), hero.LVL, hero.XP);
                 Console.ForegroundColor = ConsoleColor.White;
             }
@@ -87,7 +87,7 @@ namespace Game
                 Sound.Play("fatality");
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine(hero.Name + " IS THE WINNER!");
-                Hero.exp(2, hero.Name);
+                Hero.Exp(2);
                 Save.save("default", hero.GetStrength(), hero.GetDexterity(), hero.GetIntelligence(), hero.LVL, hero.XP);
                 Console.ForegroundColor = ConsoleColor.White;
             }

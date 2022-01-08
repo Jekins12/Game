@@ -128,7 +128,7 @@ namespace Game
             MP = 30 + Intelligence * 3;
         }
 
-        public static int exp(int opt, string name)
+        public static int Exp(int opt)
         {
             Hero hero = Load("hero");
             if (hero.XP >= (hero.LVL * 1000))

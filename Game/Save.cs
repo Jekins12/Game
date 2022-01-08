@@ -8,14 +8,10 @@ namespace Game
     {
         public static void save(string name, int str, int dex, int intl, int lvl, int xp)
         {
-
             string path = "./hero.json";
             string data = File.ReadAllText(path);
             JObject Hero = JObject.Parse(data);
-            if (name != "default")
-            {
-                Hero["Name"] = name;
-            }
+            if (name != "default") Hero["Name"] = name;
             Hero["Strength"] = str;
             Hero["Dexterity"] = dex;
             Hero["Intelligence"] = intl;

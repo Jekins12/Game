@@ -7,8 +7,6 @@ namespace Game
     {
         public static void Solo()
         {
-
-
             Console.Clear();
             int type = 1;
             bool escape = false;

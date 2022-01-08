@@ -107,27 +107,27 @@ namespace Game
                     Console.WriteLine("Bang!      " + "damage=" + damage);
                     enemy.HP -= damage;
                     Sound.Play("hit");
-                    Hero.exp(1, hero.Name);
+                    Hero.Exp(1);
                 }
                 else if (opt == 1)
                 {
                     Sound.Play("fireball");
                     Console.WriteLine("Fireball!      " + "damage=" + damage);
                     enemy.HP -= damage;
-                    Hero.exp(1, hero.Name);
+                    Hero.Exp(1);
                 }
                 else if (opt == 2)
                 {
                     Sound.Play("frostbite");
                     Console.WriteLine("Frostbite!      " + "damage=" + damage);
                     enemy.HP -= damage;
-                    Hero.exp(1, hero.Name);
+                    Hero.Exp(1);
                 }
                 else if (opt == 3)
                 {
                     Sound.Play("heal");
                     Console.WriteLine("Healed!");
-                    Hero.exp(1, hero.Name);
+                    Hero.Exp(1);
                 }
             }
 
