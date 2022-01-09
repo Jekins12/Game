@@ -6,6 +6,7 @@ namespace Game
     {
         static void Main(string[] args)
         {
+            //
             IfExist.Json();
             while (true)
             {
