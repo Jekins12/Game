@@ -142,8 +142,7 @@ namespace Game
                 case 2: hero.XP += 100; break;
                 case 3: hero.XP += 30; break;
             }
-            Save.save("default", hero.GetStrength(), hero.GetDexterity(), hero.GetIntelligence(), hero.LVL, hero.XP);
-            //return hero.XP;
+            return hero.XP;
         }
 
         public void LevelUp()
