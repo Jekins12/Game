@@ -1,1 +1,1 @@
-# My small university console project
+UMG Project
